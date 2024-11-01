@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+    <title>To-Do-List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <input id="btnNewTask" type="button" value="+">
+
+    <section>
+        <h1>Tasks</h1>
+    </section>
+    <dialog id="taskDialog">
+        <form method="dialog" id="taskForm">
+                <label >Name:<br>
+                <input required type="text" name="name"></label><br>
+                <label> Type:<br>
+                <select name="type">
+                    <option value="appointment">Appointment</option>
+                    <option value="exam">Exam</option>
+                    <option value="homework">Homework</option>
+                    <option value="thesis">Thesis</option>
+                </select><br>
+                </label>
+                <label >Description:<br>
+                <input required type="text" name="description"></label><br>
+                <label >Category:<br>
+                <input required type="text" name="category"></label><br>
+                <label >Deadline:<br>
+                <input required type="date" name="deadline"></label><br>
+                <input name="btnSubmit" type="submit" value="Add task">
+                <input type="submit" name="btnCancel" value="Cancel" formnovalidate>
+            </form>
+    </dialog>
+    <script src="script.js"></script>
+</body>
+</html>
