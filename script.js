@@ -36,15 +36,31 @@ const taskDialog = document.getElementById('taskDialog')
  * @type {HTMLFormElement}
  */
 const taskForm = document.forms['taskForm']
-/**
- * @type {IDBDatabase}
- */
-let db=null
-const req = indexedDB.open("ToDoList")
-req.onerror=()=>console.error('Please enable IndexDb!')
-req.onsuccess=ev=>{
-    db=ev.target.result
-    db.onerror=ev=>console.error(`Database error: ${ev.target.error?.message}`)
+
+const req = indexedDB.open('ToDoList')
+let db
+req.onupgradeneeded = function () {
+    const db = req.result
+    const taskStore = db.createObjectStore('task',{autoIncrement:true,keyPath:'name'})
+    Object.keys(new Task()).forEach
+        (
+        propName=>{
+            if(propName==='name')
+                {
+                    taskStore.createIndex(propName,propName,{unique:true})
+                }
+            else
+                {
+                    taskStore.createIndex(propName,propName)
+                }
+            }
+        )
+    }
+req.onsuccess=function () {
+    db=req.result
+}
+req.onerror=function (err) {
+    console.error(err)
 }
 
 
@@ -86,19 +102,6 @@ document.querySelector('section').addEventListener('click', function (e) {
         taskDialog.showModal()
         taskDialog.setAttribute('data-action', 'modify')
         taskForm.elements.btnSubmit.value = 'Modify'
-        tasks.forEach((v)=>{
-    if(v.name==target.dataset.name)
-        {
-            for (let i = 0; i < taskForm.elements.length; i++) {
-                const s = taskForm[i]
-                if(v.hasOwnProperty(s.name))
-                    {
-                        s.setAttribute('value',v[s.name])
-                    }
-            }
-            return
-        }
-})
         return
     }
     if (value == 'delete') {
