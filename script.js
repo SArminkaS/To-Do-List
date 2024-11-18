@@ -89,14 +89,12 @@ taskForm.addEventListener('submit', function (e) {
         req.onerror=err=>console.log('Error: '+err)
         req.onsuccess=ev=>
             {
-                console.log(ev.target.result);
                 const container = document.querySelector('section').querySelector(`div[data-name=${task.name}]`)
                 console.log(container);
                 container.querySelector('*[data-task="type"]').src=`./assets/${task.type}.png`
-                // container.querySelector('*[data-task="category"]').innerHTML=task.category
-                // container.querySelector('*[data-task="name"]').innerHTML=task.name
-                // container.querySelector('*[data-task="deadline"]').innerHTML=task.deadline
-                // container.querySelector('*[data-task="description"]').innerHTML=task.description
+                container.querySelector('*[data-task="category"]').innerHTML=task.category
+                container.querySelector('*[data-task="deadline"]').innerHTML=task.deadline
+                container.querySelector('*[data-task="description"]').innerHTML=task.description
             }
         return
     }
